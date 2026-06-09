@@ -1,0 +1,18 @@
+几种状态:untracked未跟踪,modified已修改,staged已暂存,clean干净状态(已提交且没修改)
+
+新文件->untracked
+git add->staged
+git commit->tracked(clean)
+修改文件->modified
+git add->staged
+git commit->tracked(clean)
+
+
+命令:
+git init ===============================初始化仓库
+git status
+git add .  ==============================把所有文件加入暂存区
+git commit -m "本次提交说明"=============提交,新增一个版本,-m message
+git commit --amend -m "新的message"=====修改最近一次commit,修改内容可以是:message/漏掉的文件
+
+

@@ -1,0 +1,11 @@
+{
+  "name": "contact-book",
+  "version": "1.0.0",
+  "description": "A simple contact management app",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "keywords": ["contacts", "cli"],
+  "license": "MIT"
+}
