@@ -12,6 +12,17 @@ git commit->tracked(clean)
 git add->staged
 git commit->tracked(clean)
 
+暂存区和最新一次commit相比已修改的文件
+Changes to be committed:
+        modified:   notes.txt
+
+工作区和暂存区相比已修改的文件
+Changes not staged for commit:
+        modified:   notes.txt
+
+工作区新增的还未被add的文件
+Untracked files:
+        newFile.txt
 
 命令:
 git init ===============================初始化仓库
