@@ -39,9 +39,56 @@ git restore 文件名  =====================工作区文件恢复成暂存区的
 git restore --staged 文件名  ============暂存区文件恢复成最新commit的样子,两条一起使用->工作区 = 暂存区 = 最新commit,相当于彻底放弃这个文件的所有修改。
 git rm --cached 文件名  =================把文件从暂存区删掉,不再跟踪,commit后后续版本不再出现这个文件,但是之前版本会保留,如果需要可以重新跟踪
 git reset 文件名   =======================和  git restore --staged 文件名  效果一样,把暂存区的文件恢复到最新提交（HEAD）的状态
-git reset --soft commit_id   ===========移动HEAD到指定commit,暂存区不变,工作区不变;HEAD 当前提交(C),HEAD~1 上一个提交(B)
-git reset (--mixed) commit_id   ========HEAD和暂存区都变成目标版本,工作区不变
-git reset --hard commit_id  ============HEAD,暂存区,工作区全都变为历史版本,彻底回到指定commit的状态
-git reset --hard HEAD ==================HEAD不移动,但工作区和暂存区恢复到HEAD,相当于: 放弃所有未提交修改
+git reset --soft commit_id   ===========分支指针移到指定commit,暂存区不变,工作区不变;HEAD 当前提交(C),HEAD~1 上一个提交(B)
+git reset (--mixed) commit_id   ========分支指针移到指定commit,暂存区变成目标版本,工作区不变
+git reset --hard commit_id  ============分支指针移到指定commit,暂存区,工作区全都变为历史版本,彻底回到指定commit的状态
+git reset --hard HEAD ==================分支指针不移动,但工作区和暂存区恢复到最新提交,相当于: 放弃所有未提交修改
 
+分支:
+HEAD -> 分支 -> 最新commit,回退实际上是移动分支指针指向历史版本,而不是移动HEAD
+
+			 HEAD
+ 			  ↓
+			login
+			  ↓
+          8888888 一一 9999999		(快进合并,master直接指向9999999)
+        /
+d2f269f
+   ↑
+ master
+
+git branch  ==============================查看分支
+git branch 分支名  ========================创建分支,默认指向当前所在提交
+git switch 分支名 ========================切换分支,切换分支前最好把当前工作区内容提交,免得考虑能不能切换或者担心工作区内容被覆盖
+git switch -c 分支名  ====================创建并切换,等价于：git branch 分支名	git switch 分支名
+git merge 分支名    ========================把该分支的成果合并到当前分支(HEAD指向的分支)
+git branch -d 分支名 =====================删除分支指针
+
+ 	login
+	  ↓
+   B 一一 C		
+  /				
+A 一一  D
+       ↑		
+        master
+
+创建一个新提交M,同时继承master和login上的修改,HEAD^表示父提交,M^1 = C,M^2 = D
+
+       login
+	 ↓
+  B 一一 C		
+ /	  \		
+A 一一 D 一 M
+	   ↑		
+     	  master
+
+出现冲突: 两个分支都对同一个文件做了修改 且 修改的地方重叠，Git 无法自动决定保留哪一方
+手动解决 -> add -> commit -> M版本被创建
+
+多分支合并:
+        D 一一一一 E (login)
+       /     	   \
+A一一B一一C一一F一一M1一一M2 (master)
+      \          	 /
+       G一一一一一一一一 H (pay)
 
