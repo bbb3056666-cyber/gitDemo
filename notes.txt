@@ -13,6 +13,6 @@ git init ===============================初始化仓库
 git status
 git add .  ==============================把所有文件加入暂存区
 git commit -m "本次提交说明"=============提交,新增一个版本,-m message
-git commit --amend -m "新的message"=====修改最近一次commit,修改内容可以是:message/漏掉的文件
+git commit --amend -m "新的message"=====用暂存区最新内容覆盖最近一次提交 + 更新提交说明
 
 
