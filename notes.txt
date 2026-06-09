@@ -1,3 +1,8 @@
+Git 有 三个区域：
+工作区（Working Directory） → 你在电脑上看到的文件
+暂存区（Staging Area / Index） → 准备提交的版本,未add时就是最新一次commit的样子
+版本库（Repository） → 已经 commit 的多个历史版本
+
 几种状态:untracked未跟踪,modified已修改,staged已暂存,clean干净状态(已提交且没修改)
 
 新文件->untracked
@@ -10,10 +15,13 @@ git commit->tracked(clean)
 
 命令:
 git init ===============================初始化仓库
-git status
-git add .  ==============================把所有文件加入暂存区
-git commit -m "本次提交说明"=============提交,新增一个版本
-git commit --amend -m "新的message"=====用暂存区最新内容覆盖最近一次提交 + 更新提交说明
-git log --oneline=======================查看 提交历史
+git status  ============================项目状态,展示未跟踪,已修改,已暂存的文件
+git add .  ==============================用工作区的内容更新(覆盖)暂存区
+git commit -m "本次提交说明"   ==========把暂存区的版本提交,新增一个版本
+git commit --amend -m "新的message"  ===用暂存区最新内容覆盖最近一次提交 + 更新提交说明
+git log --oneline   ====================查看 提交历史
+git diff    ============================显示 工作区与暂存区的差异
+git diff --staged  =====================显示 暂存区 和 最近一次 commit 的差异,也就是会被 commit 的内容
+git diff HEAD  =========================工作区 vs 最近 commit（显示所有改动）
 
 
