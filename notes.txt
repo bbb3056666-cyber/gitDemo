@@ -25,7 +25,7 @@ Changes not staged for commit:
 Untracked files:
         newFile.txt
 
-命令:
+命令
 git init ===============================初始化仓库
 git status  ============================项目状态,展示未跟踪,已修改,已暂存的文件
 git add .  ==============================用工作区的内容更新(覆盖)暂存区
@@ -44,8 +44,9 @@ git reset (--mixed) commit_id   ========分支指针移到指定commit,暂存区
 git reset --hard commit_id  ============分支指针移到指定commit,暂存区,工作区全都变为历史版本,彻底回到指定commit的状态
 git reset --hard HEAD ==================分支指针不移动,但工作区和暂存区恢复到最新提交,相当于: 放弃所有未提交修改
 
-分支:
-HEAD -> 分支 -> 最新commit,回退实际上是移动分支指针指向历史版本,而不是移动HEAD
+
+分支
+HEAD -> 分支指针 -> 最新commit,回退实际上是移动分支指针指向历史版本,而不是移动HEAD
 
 			 HEAD
  			  ↓
@@ -91,4 +92,55 @@ A 一一 D 一 M
 A一一B一一C一一F一一M1一一M2 (master)
       \          	 /
        G一一一一一一一一 H (pay)
+
+git log --graph --oneline --all ===========显示分支合并轨迹
+
+*   3b078db (HEAD -> master) Merge branch 'pay'
+|\
+| * 603b304 (pay) 新增pay文件
+* |   751d063 Merge branch 'login'  合并login到master中
+|\ \
+| * | 62a3995 (login) 修改了login文件
+| * | e5371a8 新增login文件
+| |/
+* / 8df9734 修改了notes
+|/
+* 35dab9f 分支前一次普通提交
+* 0a377f2 笔记增加branch内容
+* d2f269f 笔记加入reset内容
+* e7d9622 修改笔记,新增newFile2,将config加入gitignore
+* a2a01c1 修改笔记,取消跟踪config
+* be65375 修改了notes,新增了配置文件config
+* dba2ba2 修改笔记
+* 43020b8 又又修改了notes.txt
+* c9c1431 又修改了notes.txt,加了git log --oneline
+* b4d63fd 修改了notes.txt
+* 19f2b35 第一版:项目初始化
+
+
+远程仓库与本地仓库的交互
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
