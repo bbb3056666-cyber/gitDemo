@@ -119,14 +119,14 @@ git log --graph --oneline --all ===========显示分支合并轨迹
 
 
 远程仓库与本地仓库的交互
-git remote -v  =================== 显示当前本地仓库关联了哪些远程仓库,显示拉取（fetch）和推送（push）的地址
-git remote add origin 仓库地址 ==== 添加远程仓库
-git clone <远程仓库地址> ========== 1.在本地创建一个新目录  2.拉取远程仓库所有提交历史（commit）  3.创建本地 master 分支（或 main）  4.设置 origin 指向远程仓库
-git fetch origin (master) ========== 下载远程提交到本地 + 更新本地远程分支指针origin/maser指向，不修改本地分支和工作区
-git merge origin/master ========== 合并指定分支(origin/master)的提交到当前分支,有冲突需手动解决
-git pull origin master =========== git fetch origin master + git merge origin/master
-git push origin A:B ========== 将本地分支A推送(更新)到远程分支B
-
+git remote -v  =============================== 显示当前本地仓库关联了哪些远程仓库,显示拉取（fetch）和推送（push）的地址
+git remote add origin 仓库地址 ================ 添加远程仓库
+git clone <远程仓库地址> ====================== 1.在本地创建一个新目录  2.拉取远程仓库所有提交历史（commit）  3.创建本地 master 分支（或 main）  4.设置 origin 指向远程仓库
+git fetch origin (master) ==================== 下载远程提交到本地 + 更新本地远程分支指针origin/maser指向，不修改本地分支和工作区
+git merge origin/master(分支引用) ============= 合并指定分支(origin/master)的提交到当前分支(HEAD),有冲突需手动解决
+git pull origin(远程仓库名) master(分支名) ===== git fetch origin master + git merge origin/master
+git push origin A:B ========================== 将本地分支A推送(更新)到远程分支B
+push两种情况:
 远程: A
 本地: A --- B
 push origin login -> 远程变为A --- B
@@ -156,6 +156,10 @@ git fetch origin -> git merge origin/login -> git push origin login -> 远程变
 	          F(origin/master)
 
 
+默认分支:假如main,这时origin/HEAD -> origin/main
+1)clone后,自动git switch main
+2)clone后,origin/HEAD -> origin/main
+3)GitHub网页首先显示main分支代码
 
 
 
