@@ -119,44 +119,90 @@ git log --graph --oneline --all ===========显示分支合并轨迹
 
 
 远程仓库与本地仓库的交互
+
+本地分支		master、login			本地写代码、提交的分支。HEAD 指向当前工作分支
+远程分支		origin/master、origin/login	不是远程的master指针本身，而是本地保存的、对远程 master指针位置的一份缓存（快照），只在本地用来参考。
+
 git remote -v  =============================== 显示当前本地仓库关联了哪些远程仓库,显示拉取（fetch）和推送（push）的地址
 git remote add origin 仓库地址 ================ 添加远程仓库
 git clone <远程仓库地址> ====================== 1.在本地创建一个新目录  2.拉取远程仓库所有提交历史（commit）  3.创建本地 master 分支（或 main）  4.设置 origin 指向远程仓库
 git fetch origin (master) ==================== 下载远程提交到本地 + 更新本地远程分支指针origin/maser指向，不修改本地分支和工作区
-git merge origin/master(分支引用) ============= 合并指定分支(origin/master)的提交到当前分支(HEAD),有冲突需手动解决
+git merge origin/master(分支引用) ============= 合并指定分支(origin/master)到当前分支(HEAD),有冲突需手动解决
+git pull ===================================== git fetch , git merge origin/当前分支
 git pull origin(远程仓库名) master(分支名) ===== git fetch origin master + git merge origin/master
-git push origin A:B ========================== 将本地分支A推送(更新)到远程分支B
-push两种情况:
+
+远程:	A---B---C---D
+
+	origin/main
+   	    ↓
+本地:	A---B---E---F <-main<-HEAD
+
+	git fetch
+
+      C-----D <-origin/main
+     /
+A---B---E---F <-main<-HEAD
+      
+    git merge origin/main
+
+      C--------D  <-origin/main
+     /          \
+A---B ---E---F---M <-main<-HEAD
+
+git push ===================================== 当前 HEAD 所在分支，从远程对应分支之后新增的所有提交,把当前分支指针所能到达、而远程对应分支还没有的提交，全部上传到远程，然后移动远程分支指针
+git push origin login ========================= 把本地login分支推送给远程仓库对应分支(origin/login)
+git push -u origin login ===================== 第一次push远程没有的新分支,push后远程创建login分支,建立关联 origin/login<->login,下一次直接push就行
+
+情况1:
 远程: A
-本地: A --- B
-push origin login -> 远程变为A --- B
-
-远程: A --- C
-本地: A --- B --- M(login)
-	        /
-	       C(origin/login)
-git fetch origin -> git merge origin/login -> git push origin login -> 远程变为A --- C --- M
+本地: A --- B --- C
+git push origin login -> 远程变为A --- B --- C
 
 
-本地分支		master、login			本地写代码、提交的分支。HEAD 指向当前工作分支
-远程分支指针	origin/master、origin/login	Git 记录的远程仓库状态（你上一次 fetch 或 pull 后的 snapshot），只在本地用来参考。
+情况2:
+远程: A --- B
+本地: A --- C --- D <-login<-HEAD
+此时直接push会失败,需要先pull
+
+    git fetch origin
+
+  B <-origin/login
+ /
+A --- C --- D <-login<-HEAD
+
+   git merge origin/login
+
+  ------------B <-origin/login
+ /		\
+A --- C --- D ---M <-login<-HEAD
+
+   git push 把本地有而远程没有的提交(C,D,M)上传给远程仓库,根据提交里的父提交信息还原提交链
 
 
-一个例子:
 	  L1 --- L2(login)  
 远程:	 /
-	D --- F(master)		      
-	   	    	
-		      L2(origin/login)
-		       \
+	D --- F(master)
+
+
+    (origin/login)
+	  ↓
+	  L1 --- L3 <-login
+本地:    /            	 
+	D --- E <-master
+	↑
+  (origin/master)    	
+
+
+	    ----------L2(origin/login)
+	   /            \
 	  L1 --- L3 --- M1(login)
-本地:    /            	  \	
+最后:    /            	  \	
 	D --- E --- M2 --- M3(master)
-	 	   /
-	          F(origin/master)
+	 \	   /
+	  ------- F(origin/master)
 
 
-默认分支:假如main,这时origin/HEAD -> origin/main
+默认分支:假如是main,这时origin/HEAD -> origin/main
 1)clone后,自动git switch main
 2)clone后,origin/HEAD -> origin/main
 3)GitHub网页首先显示main分支代码
