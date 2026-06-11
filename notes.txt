@@ -202,6 +202,9 @@ A --- C --- D ---M <-login<-HEAD
 	  ------- F(origin/master)
 
 
+git branch [-vv/-a/-r] =========================查看所有本地分支和与其对应的远程分支,提示分支是否同步/查看本地+远程/查看远程
+
+
 默认分支:假如是main,这时origin/HEAD -> origin/main
 1)clone后,自动git switch main
 2)clone后,origin/HEAD -> origin/main
