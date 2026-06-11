@@ -117,6 +117,9 @@ git log --graph --oneline --all ===========显示分支合并轨迹
 * b4d63fd 修改了notes.txt
 * 19f2b35 第一版:项目初始化
 
+git switch --detach c3d4e5 =================== HEAD指向历史提交,工作区,暂存区变为历史提交,master仍指向最新提交
+git switch master 切换回来
+
 
 远程仓库与本地仓库的交互
 
